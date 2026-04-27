@@ -1,97 +1,221 @@
-body {
-    background-color: #050505;
-    color: white;
-    font-family: 'Arial Black', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+/* --- CSS RESET & FONTS --- */
+* {
     margin: 0;
-    padding: 20px;
-    text-align: center;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #000; /* Dark Black Background */
+    color: #fff;
+    font-family: 'Rajdhani', sans-serif; /* Badass Techno font */
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+}
+
+/* Dark Overlay for depth */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 100%);
+    z-index: -1;
 }
 
 .container {
-    border: 3px solid #ff003c;
-    padding: 40px;
-    background: rgba(20, 20, 20, 0.9);
-    box-shadow: 0 0 40px rgba(255, 0, 60, 0.5);
-    max-width: 900px;
-    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* --- HEADER & GLITCH --- */
+header {
+    text-align: center;
+    margin-bottom: 50px;
+    position: relative;
 }
 
 .glitch {
-    font-size: 3.5rem;
+    font-size: 4rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    position: relative;
     color: #fff;
-    text-shadow: 4px 4px #ff003c;
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+    letter-spacing: 2px;
+}
+
+/* Glitch Effect animation */
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.glitch::before {
+    left: 2px;
+    text-shadow: -2px 0 #ff00c1;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+    left: -2px;
+    text-shadow: -2px 0 #00fff9;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim2 1s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+    0% { clip: rect(31px, 9999px, 94px, 0); }
+    /* ... More glitch keyframes for better animation ... */
+    100% { clip: rect(67px, 9999px, 62px, 0); }
+}
+
+@keyframes glitch-anim2 {
+    0% { clip: rect(10px, 9999px, 85px, 0); }
+    /* ... More glitch keyframes ... */
+    100% { clip: rect(81px, 9999px, 29px, 0); }
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: #00fff9; /* Neon Cyan */
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+/* --- PROFILE GRID & CARDS --- */
+.profile-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 Columns */
+    gap: 30px;
+    width: 100%;
+    margin-bottom: 50px;
+}
+
+.card {
+    background: rgba(20, 20, 20, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    text-align: center;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+/* Hover effects for each card with different colors */
+.card-1:hover { box-shadow: 0 0 20px rgba(255, 0, 193, 0.5); border-color: rgba(255, 0, 193, 0.7); }
+.card-2:hover { box-shadow: 0 0 20px rgba(0, 255, 249, 0.5); border-color: rgba(0, 255, 249, 0.7); }
+.card-3:hover { box-shadow: 0 0 20px rgba(255, 230, 0, 0.5); border-color: rgba(255, 230, 0, 0.7); }
+
+/* --- IMAGE SIZING FIXED --- */
+.img-container {
+    width: 150px; /* Small fixed width */
+    height: 150px; /* Small fixed height (square) */
+    margin: 0 auto 15px;
+    border-radius: 50%; /* Perfect Circle */
+    overflow: hidden;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease;
+}
+
+.card:hover .img-container {
+    transform: scale(1.1);
+}
+
+.img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Photo stretch nahi hogi, adjust ho jayegi */
+}
+
+/* Card Text */
+.card h3 {
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.tagline {
+    font-family: 'Permanent Marker', cursive; /* Graffiti font */
+    color: #ff00c1; /* Default Neon Pink */
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+/* Tagline colors for other cards */
+.card-2 .tagline { color: #00fff9; } /* Cyan */
+.card-3 .tagline { color: #ffe600; } /* Yellow */
+
+/* --- INFO & BUTTON --- */
+.info-section {
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+    background: rgba(20, 20, 20, 0.8);
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.details {
+    margin-bottom: 25px;
+    font-size: 1.3rem;
+}
+
+.details p {
     margin-bottom: 10px;
 }
 
-.sub-text {
-    color: #888;
-    letter-spacing: 4px;
-    margin-bottom: 40px;
+.details strong {
+    color: #ff00c1;
+    text-transform: uppercase;
 }
 
-.friends-container {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: 20px;
-    margin-bottom: 40px;
-}
-
-.friend-card {
-    flex: 1;
-    min-width: 200px;
-}
-
-.photo-frame {
-    width: 180px;
-    height: 180px;
-    margin: 0 auto;
-    border: 5px solid #fff;
-    overflow: hidden;
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-    transform: rotate(-3deg); /* Badass tilt effect */
-}
-
-.photo-frame img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.name {
-    margin-top: 15px;
-    color: #ff003c;
-    font-size: 1.5rem;
-}
-
-.party-info p {
-    font-size: 1.2rem;
-    margin: 5px 0;
-}
-
-.map-btn {
-    margin-top: 30px;
+/* Badass Neon Button */
+.btn {
+    display: inline-block;
     padding: 15px 40px;
-    background: #ff003c;
-    color: white;
-    border: none;
+    background-color: transparent;
+    color: #00fff9;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 2px solid #00fff9;
+    border-radius: 50px;
     font-weight: bold;
-    font-size: 1.1rem;
     cursor: pointer;
-    transition: 0.3s;
-    clip-path: polygon(5% 0, 100% 0, 95% 100%, 0% 100%);
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 255, 249, 0.3);
 }
 
-.map-btn:hover {
-    background: #fff;
-    color: #ff003c;
-    box-shadow: 0 0 20px #fff;
+.btn:hover {
+    background-color: #00fff9;
+    color: #000;
+    box-shadow: 0 0 30px rgba(0, 255, 249, 0.7);
+    transform: translateY(-3px);
 }
 
-@media (max-width: 600px) {
-    .glitch { font-size: 2rem; }
+/* Responsive Design for Mobile */
+@media (max-width: 768px) {
+    .profile-grid { grid-template-columns: 1fr; }
+    .glitch { font-size: 2.5rem; }
+    .img-container { width: 120px; height: 120px; }
 }
